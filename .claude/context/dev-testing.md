@@ -3,33 +3,38 @@ generated-from-commit: c8935c50829cb56d0185124d6caf800abd11af6e
 generated-from-branch: main
 generated-date: 2026-07-02
 covers-paths:
-  - telegram-drive-secure-fork.md
+  - app/src-tauri/src/**
 source-doc: telegram-drive-secure-fork.md
-last-verified-commit: c8935c50829cb56d0185124d6caf800abd11af6e
+last-verified-commit: PENDING-IMPORT-COMMIT
 ---
 
 # Test di sviluppo
 
-> Popolare leggendo la configurazione reale dei test. Nessuna esiste ancora in questo repository.
+> Popolare leggendo la configurazione reale dei test. Verificato dopo l'import di Fase 0.
 
 ## Test runner e comandi
 
-Nessun test runner è ancora configurato. Il documento di progetto prevede, per il modulo
-crittografico Rust pianificato nella Fase 1 della roadmap, test vettoriali e round-trip
-(cifra poi decifra) più *property testing*<sup>1</sup> con la dipendenza di sviluppo `proptest`,
-oltre a un benchmark del throughput per tarare la dimensione dei chunk.
+Nessun test automatico esiste nel codice importato: una ricerca di `#[test]` sotto
+`app/src-tauri/src/` non ha trovato risultati, e non esiste una cartella `tests/`. Il documento di
+progetto prevede, per il modulo crittografico Rust pianificato nella Fase 1, test vettoriali e
+round-trip (cifra poi decifra) più *property testing*<sup>1</sup> con la dipendenza di sviluppo
+`proptest`, non ancora aggiunta a `Cargo.toml`, oltre a un benchmark del throughput per tarare la
+dimensione dei chunk.
 
 ## Rotte e dati mockati
 
-Nessuna rotta o dato mockato esiste ancora, in assenza di codice.
+Nessuna rotta o dato mockato è stata identificata; la REST API reale (`server.rs`,
+`api_routes.rs`, `share_routes.rs`) non è stata letta in dettaglio in questo passaggio.
 
 ## Hook e controlli di qualità
 
-Nessun hook di lint, type-check o build è ancora configurato. Il documento di progetto anticipa,
-come checklist di sicurezza pre-release, controlli quali `cargo audit` e `npm audit` puliti in CI,
-verifica che nessun segreto sia persistito in chiaro, verifica che le chiavi e le passphrase siano
-azzerate dalla memoria al lock o all'uscita, e verifica che i nonce non vengano mai riusati.
-Nessuno di questi controlli è ancora automatizzato.
+Nessun hook di lint, type-check o build è ancora configurato in questo repository (il workflow
+`.github/workflows/release.yml` importato non è stato verificato né adattato, vedi
+`deployment.md`). Il documento di progetto anticipa, come checklist di sicurezza pre-release,
+controlli quali `cargo audit` e `npm audit` puliti in CI, verifica che nessun segreto sia
+persistito in chiaro, verifica che le chiavi e le passphrase siano azzerate dalla memoria al lock
+o all'uscita, e verifica che i nonce non vengano mai riusati. Nessuno di questi controlli è ancora
+automatizzato.
 
 ---
 

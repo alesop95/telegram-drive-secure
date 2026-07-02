@@ -6,6 +6,38 @@
 > documenti `.docx`, con il nome del documento sorgente e l'esito, così la data di allineamento
 > sopravvive a un clone.
 
+## 2026-07-02 — Fase 0: import pulito del codice upstream
+
+Commit: PENDING-IMPORT-COMMIT (working tree modificato, non ancora committato dall'utente)
+File toccati: `README.md`, `CHANGELOG.md`, `REST_API_Documentation.md`, `NOTICE.md`, `app/**`
+(nuovo), `.github/workflows/release.yml` (nuovo), `.gitignore` (unione con i pattern upstream),
+schede di `context/` (`STACK.md`, `design-and-security.md`, `deployment.md`, `dev-testing.md`,
+`current-work.md`, `roadmap.md`), `memory/decisions.md` (ADR-004).
+Motivo: risolta la domanda aperta di Fase 0 (fork GitHub vs import pulito) con la scelta esplicita
+dell'utente per l'import pulito. Clonato `caamer20/Telegram-Drive` al commit upstream `8715927`
+(release v1.9.7) in una cartella scratch, scansionato per segreti (nessuno trovato), poi copiati i
+file rilevanti nel repository escludendo `screenshots/` (46 MB, non essenziale) e
+`.github/FUNDING.yml` (redirigerebbe sponsor verso l'autore originale). Creato `NOTICE.md` con
+attribuzione MIT e nota esplicita che il repository sorgente, pur dichiarando MIT nel README, non
+contiene un file `LICENSE` verificabile. Lette le dipendenze reali (`Cargo.toml`, `package.json`) e
+la configurazione Tauri (`tauri.conf.json`), da cui sono emersi due gap di sicurezza concreti,
+non più solo pianificati: CSP con `unsafe-inline`/`unsafe-eval`, e updater Tauri che punta ancora
+all'endpoint e alla chiave di firma dell'autore originale. Le schede di `context/` sono state
+riscritte per riflettere il codice reale importato, con `last-verified-commit` impostato a
+`PENDING-IMPORT-COMMIT` in attesa che l'utente esegua il commit di questo import.
+
+## 2026-07-02 — Verifica drift e chiusura del ciclo di riconciliazione
+
+Commit: da0bb0dff99bf03cdd04c704b4f3fb6a348bf74c
+File toccati: `last-verified-commit` in tutte le schede di `.claude/context/`, snapshot in
+`.claude/memory/index.md`.
+Motivo: dopo il push dell'utente, `HEAD` (`da0bb0d`, il commit di ancoraggio stesso) risultava un
+passo avanti rispetto a `last-verified-commit` (`c8935c5`). Confrontati i due commit con `git diff
+--name-only c8935c5..da0bb0d`: tocca solo `.claude/context/` e `.claude/memory/`, nessun file nei
+`covers-paths` (`telegram-drive-secure-fork.md`), quindi nessun drift reale. `last-verified-commit`
+portato a `da0bb0d` in ogni scheda per chiudere il ciclo; da qui in poi il drift si misura da questo
+commit.
+
 ## 2026-07-02 — Ancoraggio delle schede al primo commit reale
 
 Commit: c8935c50829cb56d0185124d6caf800abd11af6e

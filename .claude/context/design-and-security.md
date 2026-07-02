@@ -3,16 +3,19 @@ generated-from-commit: c8935c50829cb56d0185124d6caf800abd11af6e
 generated-from-branch: main
 generated-date: 2026-07-02
 covers-paths:
+  - app/src-tauri/tauri.conf.json
+  - app/src-tauri/src/**
   - telegram-drive-secure-fork.md
 source-doc: telegram-drive-secure-fork.md
-last-verified-commit: c8935c50829cb56d0185124d6caf800abd11af6e
+last-verified-commit: PENDING-IMPORT-COMMIT
 ---
 
 # Design e sicurezza applicativa
 
-> Popolare leggendo il codice attuale. In assenza di codice, questa scheda riporta il modello di
-> minaccia e l'architettura crittografica come pianificati nel documento di progetto
-> `telegram-drive-secure-fork.md`, da riconciliare non appena l'implementazione comincia.
+> Popolare leggendo il codice attuale. Dopo l'import di Fase 0, il modello di minaccia e
+> l'architettura crittografica restano quelli pianificati nel documento di progetto
+> `telegram-drive-secure-fork.md` (non ancora implementati), ma la sezione "Sicurezza applicativa"
+> ora include due gap concreti trovati leggendo `tauri.conf.json` importato, non più solo ipotesi.
 
 ## Modello di minaccia
 
@@ -54,9 +57,23 @@ header `Host` e `Origin`, e rate limiting; una CSP<sup>4</sup> restrittiva nella
 Tauri, con allowlist minima e verifica che il webview non carichi contenuto remoto arbitrario, più
 un updater firmato con chiavi proprie; controlli di supply chain con `cargo audit` e `npm audit` in
 CI, `cargo deny` per licenze e duplicati, lockfile committati; azzeramento (`zeroize`) di chiavi e
-passphrase in memoria, e nessun logging di segreti, passphrase, token o nomi file in chiaro. Nessuna
-di queste misure è ancora implementata: sono impegni dichiarati nel documento di progetto, da
-verificare voce per voce contro il codice reale quando esisterà.
+passphrase in memoria, e nessun logging di segreti, passphrase, token o nomi file in chiaro. La
+maggior parte di queste misure non è ancora implementata nel codice importato: restano impegni da
+verificare voce per voce, non ancora un audit completo. Il modulo REST API (`server.rs`,
+`api_routes.rs`, `share_routes.rs` sotto `app/src-tauri/src/`) esiste già nel codice ereditato e sarà
+la superficie concreta su cui applicare l'hardening di Fase 4; non è stato letto riga per riga in
+questo passaggio.
+
+Due gap concreti sono già verificabili leggendo `app/src-tauri/tauri.conf.json`, importato
+invariato dall'originale. Primo, la CSP dichiarata include `'unsafe-inline'` e `'unsafe-eval'` in
+`script-src`, oltre a `https:` generico in più direttive: è l'opposto della CSP restrittiva con
+allowlist minima che il fork si propone in Fase 4, e va ristretta. Secondo, l'`updater` Tauri punta
+a `https://github.com/caamer20/Telegram-Drive/releases/latest/download/latest.json` con la chiave
+pubblica di firma dell'autore originale: finché questa configurazione resta invariata, un utente di
+questo fork riceverebbe aggiornamenti firmati e distribuiti dall'autore originale, non da questo
+progetto, il che vanifica sia l'indipendenza del fork sia l'impegno dichiarato a un "updater firmato
+con chiavi proprie". Va sostituito con un endpoint e una coppia di chiavi del fork prima di
+qualunque distribuzione reale, non solo prima della release finale.
 
 ## Diagrammi
 

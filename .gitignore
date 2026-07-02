@@ -30,5 +30,40 @@ target/
 # Node (frontend React/TS)
 node_modules/
 dist/
+dist-ssr/
+*.local
 # Session string, api_id/api_hash e altre credenziali Telegram/Grammers a riposo
 *.session
+
+# --- Import da caamer20/Telegram-Drive (Fase 0), unione dei .gitignore upstream ---
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.npm-cache
+**/*.rs.bk
+CompiledApps/
+Error.html
+**/LatestError.html
+# Android
+/android/
+app/src-tauri/gen/
+*.apk
+*.aab
+.gradle/
+local.properties
+*.keystore
+*.idsig
+*.DMP
+app/src-tauri/src-android/

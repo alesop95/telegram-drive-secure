@@ -53,3 +53,31 @@ del repository, non alla formulazione della richiesta.
 Conseguenze: le schede di `context/` sono popolate leggendo il documento di progetto esistente
 invece che il codice, che non esiste ancora; andranno riconciliate con `sync-context` non appena
 inizierà l'implementazione (Fase 0 della roadmap, il fork effettivo del repository originale).
+
+## ADR-004 — Fase 0 eseguita come import pulito, non come fork GitHub
+
+Data: 2026-07-02
+Stato: accettata
+Contesto: `context/current-work.md` segnalava come domanda bloccante se portare il codice di
+`caamer20/Telegram-Drive` in questo progetto tramite il bottone "Fork" di GitHub (che preserva lo
+storico dei commit originali ma crea un repository separato) oppure tramite import pulito nel
+repository già inizializzato con identità, anatomia `.claude` e primo commit propri. L'utente ha
+scelto esplicitamente l'import pulito.
+Decisione: scaricato il codice upstream con `git clone --depth 1` al commit
+`8715927b4651930125d6478b7d69f74281d9010c` (release v1.9.7, 2026-07-01) in una cartella scratch,
+poi copiati nel repository `README.md`, `CHANGELOG.md`, `REST_API_Documentation.md`, l'intera
+cartella `app/` (frontend React/TS e backend Rust/Tauri) e `.github/workflows/release.yml` come
+riferimento non verificato. Esclusi deliberatamente `screenshots/` (circa 46 MB di immagini non
+essenziali allo sviluppo) e `.github/FUNDING.yml` (redirigerebbe eventuali sponsor di questo fork
+verso l'autore originale). Creato `NOTICE.md` con attribuzione, changelog del fork, ed
+esplicitamente uno stato "da verificare" sulla licenza: il `README.md` upstream dichiara MIT ma il
+repository sorgente, al commit importato, non contiene alcun file `LICENSE`.
+Motivazione: questo repository ha già l'identità git personale, l'anatomia `.claude` e un primo
+commit pushato su `origin/main`; un fork GitHub reale avrebbe creato un secondo repository separato
+da riconciliare con questo, senza un beneficio proporzionato per un progetto personale a un solo
+sviluppatore.
+Conseguenze: la storia dei commit dell'originale non è preservata in questo repository, solo il
+riferimento esplicito al commit upstream in `NOTICE.md`; l'attribuzione MIT resta garantita dal
+`NOTICE.md` stesso, non da un fork Git formale. La scheda `STACK.md` e le altre schede di
+`context/` sono state aggiornate leggendo il codice reale importato, non più il solo documento di
+progetto.

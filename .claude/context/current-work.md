@@ -1,10 +1,10 @@
 ---
-generated-from-commit: PENDING-FIRST-COMMIT
+generated-from-commit: c8935c50829cb56d0185124d6caf800abd11af6e
 generated-from-branch: main
 generated-date: 2026-07-02
 covers-paths:
   - telegram-drive-secure-fork.md
-last-verified-commit: PENDING-FIRST-COMMIT
+last-verified-commit: c8935c50829cb56d0185124d6caf800abd11af6e
 stato: in pianificazione
 ---
 
@@ -51,4 +51,4 @@ definitivo o se il codice va invece portato dentro un repository forkato a parte
 
 ## Riconciliazione
 
-Ultima verifica: 2026-07-02 al commit PENDING-FIRST-COMMIT.
+Ultima verifica: 2026-07-02 al commit c8935c50829cb56d0185124d6caf800abd11af6e.

@@ -1,11 +1,11 @@
 ---
-generated-from-commit: PENDING-FIRST-COMMIT
+generated-from-commit: c8935c50829cb56d0185124d6caf800abd11af6e
 generated-from-branch: main
 generated-date: 2026-07-02
 covers-paths:
   - telegram-drive-secure-fork.md
 source-doc: telegram-drive-secure-fork.md
-last-verified-commit: PENDING-FIRST-COMMIT
+last-verified-commit: c8935c50829cb56d0185124d6caf800abd11af6e
 ---
 
 # Test di sviluppo

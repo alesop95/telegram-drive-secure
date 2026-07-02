@@ -8,31 +8,31 @@
 
 ```
 Branch attivo:        main
-Commit di riferimento: PENDING-FIRST-COMMIT
+Commit di riferimento: c8935c50829cb56d0185124d6caf800abd11af6e
 Data snapshot:        2026-07-02
 ```
 
-Il progetto non ha ancora un commit: il repository è stato appena inizializzato in locale con
-`git init` e l'identità personale (`alesop95`, alias SSH `github-personal`), agganciato al
-remoto `git@github-personal:alesop95/telegram-drive-secure.git`. Non contiene ancora codice, solo
-il documento di progetto `telegram-drive-secure-fork.md` in radice e l'anatomia `.claude` appena
-allineata allo standard portabile. Il fork del repository originale (`caamer20/Telegram-Drive`,
-Fase 0 della roadmap) non è ancora stato eseguito.
+Primo commit eseguito e pushato su `origin/main` con l'identità personale (`alesop95`, alias SSH
+`github-personal`, remoto `git@github-personal:alesop95/telegram-drive-secure.git`). Il
+repository contiene il documento di progetto `telegram-drive-secure-fork.md` e l'anatomia
+`.claude` completa appena allineata allo standard portabile, ma non contiene ancora codice: il
+fork del repository originale (`caamer20/Telegram-Drive`, Fase 0 della roadmap) non è ancora
+stato eseguito.
 
 ## Stato di verifica delle schede
 
 | Scheda | last-verified | Stato |
 |---|---|---|
-| STACK.md | PENDING-FIRST-COMMIT | aggiornata (pianificazione, nessun codice da verificare) |
-| design-and-security.md | PENDING-FIRST-COMMIT | aggiornata (pianificazione, nessun codice da verificare) |
-| deployment.md | PENDING-FIRST-COMMIT | aggiornata (nessuna infrastruttura ancora definita) |
-| dev-testing.md | PENDING-FIRST-COMMIT | aggiornata (nessun test ancora definito) |
-| current-work.md | PENDING-FIRST-COMMIT | aggiornata |
-| roadmap.md | PENDING-FIRST-COMMIT | aggiornata |
+| STACK.md | c8935c5 | aggiornata (pianificazione, nessun codice da verificare) |
+| design-and-security.md | c8935c5 | aggiornata (pianificazione, nessun codice da verificare) |
+| deployment.md | c8935c5 | aggiornata (nessuna infrastruttura ancora definita) |
+| dev-testing.md | c8935c5 | aggiornata (nessun test ancora definito) |
+| current-work.md | c8935c5 | aggiornata |
+| roadmap.md | c8935c5 | aggiornata |
 
 ## Punto di ripresa
 
-Eseguire il primo commit e il primo push (operazioni manuali dell'utente, vedi
-`.claude/rules/git-identity-and-repo.md`), poi far girare la skill `sync-context` per ancorare
-`last-verified-commit` all'hash reale; da lì si può procedere con la Fase 0 della roadmap, il
-fork effettivo del repository originale.
+Decidere come eseguire la Fase 0 della roadmap (fork GitHub reale con storico dell'originale, o
+import pulito del codice in questo repository — domanda aperta in `context/current-work.md`), poi
+importare il codice di `caamer20/Telegram-Drive` e far girare `sync-context` per rilevare il primo
+drift reale sulle schede.

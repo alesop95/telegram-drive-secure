@@ -6,6 +6,18 @@
 > documenti `.docx`, con il nome del documento sorgente e l'esito, così la data di allineamento
 > sopravvive a un clone.
 
+## 2026-07-02 — Ancoraggio delle schede al primo commit reale
+
+Commit: c8935c50829cb56d0185124d6caf800abd11af6e
+File toccati: frontmatter di tutte le schede sotto `.claude/context/` e snapshot in
+`.claude/memory/index.md`.
+Motivo: l'utente ha eseguito il primo commit (root commit, identità confermata `alesop95
+<alessio.sopranzi.95@gmail.com>`) e il primo push su `origin/main` (remoto vuoto, nessun rebase
+necessario). Il segnaposto `PENDING-FIRST-COMMIT` è stato sostituito con l'hash reale in
+`generated-from-commit` e `last-verified-commit` di ogni scheda, e lo snapshot di
+`memory/index.md` è stato aggiornato di conseguenza, come previsto dal Passo 7 del runbook di
+inizializzazione.
+
 ## 2026-07-02 — Inizializzazione del sistema di progetto e bootstrap del repository
 
 Commit: PENDING-FIRST-COMMIT

@@ -7,7 +7,7 @@ covers-paths:
   - app/src-tauri/src/**
   - telegram-drive-secure-fork.md
 source-doc: telegram-drive-secure-fork.md
-last-verified-commit: PENDING-IMPORT-COMMIT
+last-verified-commit: 313fcc81be48567cc0f7a3d66f51d54e1d8088a6
 ---
 
 # Design e sicurezza applicativa

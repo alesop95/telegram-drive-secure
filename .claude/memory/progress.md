@@ -6,6 +6,31 @@
 > documenti `.docx`, con il nome del documento sorgente e l'esito, così la data di allineamento
 > sopravvive a un clone.
 
+## 2026-07-02 — Fase 0: hardening del bundle e revisione della CI (Rust non disponibile)
+
+Commit: nessuno ancora, working tree modificato
+File toccati: `app/src-tauri/tauri.conf.json` (`identifier`, `productName`, titolo finestra),
+`.claude/context/deployment.md`, `.claude/context/current-work.md`, `.claude/memory/decisions.md`
+(ADR-005).
+Motivo: chiesto di iniziare la Fase 1 (modulo crypto Rust). Verificato che questa macchina non ha
+`cargo`/`rustc` installati; per non scrivere codice crittografico non compilabile né testabile, si
+è scelto di rimandare la Fase 1 (ADR-005) e lavorare su due item di Fase 0 verificabili senza
+Rust: letto per intero `.github/workflows/release.yml` (nessun riferimento hardcoded
+all'originale, ma richiede secret `TAURI_SIGNING_PRIVATE_KEY`/`_PASSWORD` non configurati), e
+aggiornati `identifier` (`com.alesop95.telegramdrivesecure`), `productName` e titolo finestra in
+`tauri.conf.json` da quelli dell'autore originale. Non generata una coppia di chiavi di firma
+dell'updater: richiede una decisione dell'utente su come custodire la chiave privata.
+
+## 2026-07-02 — Ancoraggio delle schede al commit di import di Fase 0
+
+Commit: 313fcc81be48567cc0f7a3d66f51d54e1d8088a6
+File toccati: `last-verified-commit` in tutte le schede di `.claude/context/`, snapshot in
+`.claude/memory/index.md`.
+Motivo: l'utente ha committato e pushato l'import di Fase 0. Sostituito il segnaposto
+`PENDING-IMPORT-COMMIT` con l'hash reale in ogni scheda; il punto di ripresa in
+`memory/index.md` è stato spostato sulla Fase 1 (modulo crittografico Rust), il passo di sviluppo
+successivo secondo la roadmap.
+
 ## 2026-07-02 — Fase 0: import pulito del codice upstream
 
 Commit: PENDING-IMPORT-COMMIT (working tree modificato, non ancora committato dall'utente)

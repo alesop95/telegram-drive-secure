@@ -81,3 +81,27 @@ riferimento esplicito al commit upstream in `NOTICE.md`; l'attribuzione MIT rest
 `NOTICE.md` stesso, non da un fork Git formale. La scheda `STACK.md` e le altre schede di
 `context/` sono state aggiornate leggendo il codice reale importato, non più il solo documento di
 progetto.
+
+## ADR-005 — Fase 1 (modulo crypto) rimandata per assenza del toolchain Rust
+
+Data: 2026-07-02
+Stato: accettata
+Contesto: chiesto di iniziare la Fase 1 (modulo crittografico Rust), verificato che questa
+macchina non ha `cargo` né `rustc` installati (né da bash né da PowerShell). La Fase 1 stessa
+richiede test vettoriali e round-trip come definition of done: scrivere codice crittografico senza
+poterlo compilare né testare andrebbe contro il criterio di qualità che il progetto stesso si è
+dato.
+Decisione: non scrivere ancora il modulo `crypto`. Lavorare invece sugli item di Fase 0 non
+bloccati dall'assenza di Rust: lettura completa di `.github/workflows/release.yml` (nessun
+riferimento hardcoded all'autore originale, ma richiede secret di firma non configurati), e
+aggiornamento di `identifier`, `productName` e titolo finestra in `tauri.conf.json` (modifica di
+sola stringa, a basso rischio, non verificata con una build reale).
+Motivazione: preferire lavoro verificabile a lavoro non verificabile quando la scelta è possibile,
+specialmente su codice di sicurezza; una domanda esplicita all'utente su come procedere non ha
+ricevuto risposta entro il timeout, quindi si è scelta l'opzione più conservativa tra quelle
+proposte.
+Conseguenze: la Fase 1 resta da iniziare. Prima di scriverla serve o installare un toolchain Rust
+su questa macchina, oppure accettare esplicitamente codice non compilato/non testato dichiarato
+come tale. L'endpoint e la chiave pubblica dell'updater Tauri restano quelli dell'autore originale
+finché non viene generata una coppia di chiavi di firma del fork, passo che richiede una decisione
+dell'utente su come custodire la chiave privata risultante (non generata autonomamente qui).

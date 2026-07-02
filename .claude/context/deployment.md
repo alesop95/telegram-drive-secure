@@ -6,7 +6,7 @@ covers-paths:
   - app/src-tauri/tauri.conf.json
   - .github/workflows/**
 source-doc: telegram-drive-secure-fork.md
-last-verified-commit: PENDING-IMPORT-COMMIT
+last-verified-commit: 313fcc81be48567cc0f7a3d66f51d54e1d8088a6
 ---
 
 # Deployment
@@ -27,10 +27,34 @@ da questo fork.
 Ereditati dall'originale, non ancora verificati end-to-end in questo repository: `npm run dev` e
 `npm run build` in `app/` (rispettivamente `beforeDevCommand` e `beforeBuildCommand` in
 `tauri.conf.json`), e il comando `tauri` esposto dallo script `"tauri": "tauri"` di
-`app/package.json` per build e bundle nativi. Un workflow CI, `.github/workflows/release.yml`, è
-stato importato come riferimento ma non è stato letto in dettaglio né adattato: cita segreti e
-passaggi di firma specifici dell'autore originale (vedi `NOTICE.md`) e non va abilitato su questo
-repository senza revisione.
+`app/package.json` per build e bundle nativi. Verifica non eseguibile in questa sessione: nessun
+toolchain Rust (`cargo`/`rustc`) è installato sulla macchina, quindi build e test del backend
+Tauri non sono stati compilati né eseguiti.
+
+`.github/workflows/release.yml` è stato letto per intero. Si attiva su push di un tag `v*`,
+crea una release GitHub in bozza, builda su Windows/Linux/macOS (Intel e Apple Silicon) tramite
+`tauri-apps/tauri-action`, e infine pubblica la release. Non contiene riferimenti hardcoded
+all'autore originale: usa `context.repo.owner`/`context.repo.repo` dinamici, quindi opera già sul
+repository in cui gira. Richiede però due secret non configurati in questo repository,
+`TAURI_SIGNING_PRIVATE_KEY` e `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`: senza di essi, un push di un
+tag `v*` su questo repository creerebbe comunque una release in bozza (job `create-release`, che
+non richiede il secret) per poi fallire nello step di build. Il workflow non va quindi considerato
+pericoloso di per sé, ma non è ancora utilizzabile: manca una coppia di chiavi di firma proprie del
+fork, e la relativa chiave pubblica non è ancora stata sostituita in `tauri.conf.json` (vedi sotto
+e `design-and-security.md`).
+
+## Note sul bundle
+
+`app/src-tauri/tauri.conf.json` aveva `identifier: com.cameronamer.telegramdrive`,
+`productName: Telegram Drive` e il titolo finestra `Telegram Drive`, tutti riferiti al progetto
+originale. Aggiornati in questa sessione a `com.alesop95.telegramdrivesecure` e
+`Telegram Drive Secure` (identifier, productName, titolo finestra), modifica di sola stringa non
+verificata con una build reale per l'assenza del toolchain Rust. L'endpoint e la chiave pubblica
+dell'updater restano invece quelli dell'autore originale: cambiarli richiede prima generare una
+coppia di chiavi di firma proprie del fork (`tauri signer generate`, eseguibile via
+`npx @tauri-apps/cli` senza compilare il backend), passo non eseguito qui perché la chiave privata
+risultante va gestita con cura dall'utente (password, storage, segreto GitHub), non generata e
+lasciata di default dall'agente.
 
 ## Variabili d'ambiente e segreti
 

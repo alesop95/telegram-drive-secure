@@ -1,0 +1,34 @@
+# --- Sistema di progetto portabile: livello privato e ignorato (sezione 6/10) ---
+# Da unire al .gitignore del progetto. Inserire PRIMA di creare _notes/, altrimenti
+# la cartella finisce indicizzata.
+
+# Livello privato e verboso
+_notes/
+
+# Override personali e permessi personali
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Segreti e materiale di credenziale: mai committati. Il template pubblico delle variabili
+# e' .env.example, tracciato; la copia compilata .env resta locale (sezione 6).
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Estratti temporanei di documenti voluminosi (cartelle scratch e cache di doc-ingest)
+_notes/.tmp-doc-*/
+.tmp-doc-*/
+
+# Documenti Word grezzi (binari). Dichiarare qui le eventuali eccezioni curate.
+*.docx
+
+# Ambiente materializzato (sezione 13): si versiona il manifesto, si ignora il derivato.
+# Rust / Tauri
+target/
+# Node (frontend React/TS)
+node_modules/
+dist/
+# Session string, api_id/api_hash e altre credenziali Telegram/Grammers a riposo
+*.session

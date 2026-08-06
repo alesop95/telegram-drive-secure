@@ -12,16 +12,11 @@ stato: in corso
 
 # Lavoro in corso
 
-> La fonte di verità su cosa è fatto resta `memory/index.md` e il work-log, non le spunte di
-> questo file.
+> La fonte di verità su cosa è fatto resta `memory/index.md` e il work-log, non le spunte di questo file.
 
 ## Feature: Fase 0 — Fork e setup
 
-Cosa fa: porta il codice di `caamer20/Telegram-Drive` in questo repository, con attribuzione MIT
-e changelog, e prepara una CI propria. Descritta nella sezione 4 del documento di progetto
-`telegram-drive-secure-fork.md`. La domanda aperta sul come (fork GitHub reale vs import pulito) è
-stata risolta: import pulito, storia dell'originale non preservata (vedi `ADR-004` in
-`memory/decisions.md`).
+Cosa fa: porta il codice di `caamer20/Telegram-Drive` in questo repository, con attribuzione MIT e changelog, e prepara una CI propria. Descritta nella sezione 4 del documento di progetto `telegram-drive-secure-fork.md`. La domanda aperta sul come (fork GitHub reale vs import pulito) è stata risolta: import pulito, storia dell'originale non preservata (vedi `ADR-004` in `memory/decisions.md`).
 
 File creati:
 
@@ -51,27 +46,15 @@ Definition of done:
 
 - [x] codice importato in questo repository (import pulito, non fork GitHub)
 - [x] `NOTICE.md` con attribuzione e changelog presente
-- [x] `identifier`, `productName` e titolo finestra del bundle non implicano più l'autore
-      originale (modifica di sola stringa, non verificata con una build reale: nessun toolchain
-      Rust installato su questa macchina)
-- [ ] stato della licenza upstream chiarito (badge MIT nel README, nessun file `LICENSE` trovato
-      nel repository sorgente al commit importato — vedi `NOTICE.md`)
-- [ ] CI propria funzionante: `release.yml` è stato revisionato ma non è utilizzabile finché non
-      esiste una coppia di chiavi di firma del fork (vedi sotto) e i relativi secret GitHub
-- [ ] conferma se AdMob/SDK di tracking sono presenti: nessun riferimento trovato nel codice
-      importato, ma il sorgente Android (`app/src-tauri/src-android/`) è escluso dal repository
-      upstream stesso tramite il suo `.gitignore`, quindi non è verificabile da un clone normale
+- [x] `identifier`, `productName` e titolo finestra del bundle non implicano più l'autore originale (modifica di sola stringa, non verificata con una build reale: nessun toolchain Rust installato su questa macchina)
+- [ ] stato della licenza upstream chiarito (badge MIT nel README, nessun file `LICENSE` trovato nel repository sorgente al commit importato — vedi `NOTICE.md`)
+- [ ] CI propria funzionante: `release.yml` è stato revisionato ma non è utilizzabile finché non esiste una coppia di chiavi di firma del fork (vedi sotto) e i relativi secret GitHub
+- [ ] conferma se AdMob/SDK di tracking sono presenti: nessun riferimento trovato nel codice importato, ma il sorgente Android (`app/src-tauri/src-android/`) è escluso dal repository upstream stesso tramite il suo `.gitignore`, quindi non è verificabile da un clone normale
 
 Domande aperte:
 
-Nessuna domanda bloccante residua per la sola Fase 0. Resta da decidere, prima di poter fare una
-build reale del fork, chi genera la coppia di chiavi di firma dell'updater (`tauri signer
-generate`, possibile via `npx @tauri-apps/cli` senza compilare il backend) e come gestisce la
-chiave privata risultante; l'agente non la genera autonomamente perché va custodita con cura
-dall'utente. Resta aperto anche se e come ottenere un chiarimento sulla licenza dall'autore
-originale.
+Nessuna domanda bloccante residua per la sola Fase 0. Resta da decidere, prima di poter fare una build reale del fork, chi genera la coppia di chiavi di firma dell'updater (`tauri signer generate`, possibile via `npx @tauri-apps/cli` senza compilare il backend) e come gestisce la chiave privata risultante; l'agente non la genera autonomamente perché va custodita con cura dall'utente. Resta aperto anche se e come ottenere un chiarimento sulla licenza dall'autore originale.
 
 ## Riconciliazione
 
-Ultima verifica: 2026-07-02 al commit 313fcc81be48567cc0f7a3d66f51d54e1d8088a6, più modifiche di
-sola stringa al bundle (`tauri.conf.json`) non ancora committate.
+Ultima verifica: 2026-07-02 al commit 313fcc81be48567cc0f7a3d66f51d54e1d8088a6, più modifiche di sola stringa al bundle (`tauri.conf.json`) non ancora committate.
